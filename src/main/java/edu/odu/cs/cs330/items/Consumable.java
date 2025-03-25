@@ -1,5 +1,7 @@
 package edu.odu.cs.cs330.items;
 
+import java.util.Objects;
+
 /**
  * This class represents one Consumable Item--as found in most video games.
  * This includes food.
@@ -46,6 +48,8 @@ public class Consumable extends Item {
         super("[Placeholder]");
 
         // Complete the remainder of this method
+        this.effect = "";
+        this.uses = 0;
     }
 
     /**
@@ -98,13 +102,16 @@ public class Consumable extends Item {
     public int requiredNumberOfValues()
     {
         // Replace this with the correct value
-        return -1;
+        return 3;
     }
 
     @Override
     public void fromTokens(String[] tokens)
     {
+        this.setName(tokens[0]);
 
+        this.setEffect(tokens[1]);
+        this.setNumberOfUses(Integer.parseInt(tokens[2]));
     }
 
     /**
@@ -114,7 +121,14 @@ public class Consumable extends Item {
     public Item clone()
     {
         // Replace the next line
-        return null;
+        Consumable cpy = new Consumable();
+
+        // Complete the remainder of this method
+        cpy.setName(this.getName());
+        cpy.setEffect(this.getEffect());
+        cpy.setNumberOfUses(this.getNumberOfUses());
+
+        return cpy;
     }
 
     /**
@@ -129,8 +143,13 @@ public class Consumable extends Item {
             return false;
         }
 
+        Consumable rhsItem = (Consumable) rhs;
+
         // Replace the "return false" with your logic
-        return false;
+        if (!this.getName().equals(rhsItem.getName())) {return false;}
+        if (!this.getEffect().equals(rhsItem.getEffect())) {return false;}
+
+        return true;
     }
 
     /**
@@ -142,7 +161,10 @@ public class Consumable extends Item {
     @Override
     public int hashCode()
     {
-        return -1;
+        return Objects.hash(
+            this.getName(),
+            this.getEffect()
+        );
     }
 
     /**
@@ -151,6 +173,12 @@ public class Consumable extends Item {
     @Override
     public String toString()
     {
-        return "Make sure to check Armour.toString for hints.";
+        StringBuilder strBld = new StringBuilder();
+        strBld.append(String.format("  Nme: %s\n", this.getName()));
+        strBld.append(String.format("  Eft: %s\n", this.getEffect()));
+        strBld.append(String.format("  Use: %d\n", this.getNumberOfUses()));
+
+        return strBld.toString();
+
     }
 }
