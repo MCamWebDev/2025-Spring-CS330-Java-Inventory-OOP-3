@@ -44,6 +44,7 @@ public class Armour extends Equippable {
         super();
 
         // Complete the remainder of this method
+        this.defense = 0;
     }
 
     /**
@@ -70,7 +71,7 @@ public class Armour extends Equippable {
     public int requiredNumberOfValues()
     {
         // Replace this with the correct value
-        return -1;
+        return 7;
     }
 
     @Override
@@ -82,6 +83,10 @@ public class Armour extends Equippable {
         this.setDurability(Integer.parseInt(tokens[2]));
 
         // Complete the remainder of this method
+        this.setDefense(Integer.parseInt(tokens[3]));
+        this.setModifier(tokens[4]);
+        this.setModifierLevel(Integer.parseInt(tokens[5]));
+        this.setElement(tokens[6]);
     }
 
     /**
@@ -93,6 +98,13 @@ public class Armour extends Equippable {
         Armour cpy = new Armour();
 
         // Complete the remainder of this method
+        cpy.setName(this.getName());
+        cpy.setDurability(this.getDurability());
+        cpy.setMaterial(this.getMaterial());
+        cpy.setModifier(this.getModifier());
+        cpy.setModifierLevel(this.getModifierLevel());
+        cpy.setElement(this.getElement());
+        cpy.setDefense(this.getDefense());
 
 
         return cpy;
@@ -114,7 +126,14 @@ public class Armour extends Equippable {
         Armour rhsItem = (Armour) rhs;
 
         // Complete the remainder of this method
-        return false;
+        if (!this.getName().equals(rhsItem.getName())) {return false;}
+        if (!this.getMaterial().equals(rhsItem.getMaterial())) {return false;}
+        if (!this.getModifier().equals(rhsItem.getModifier())) {return false;}
+        if (this.getModifierLevel() != rhsItem.getModifierLevel()) {return false;}
+        if (!this.getElement().equals(rhsItem.getElement())) {return false;}
+        if (this.getDefense() != rhsItem.getDefense()) {return false;}
+
+        return true;
     }
 
     /**
@@ -142,10 +161,14 @@ public class Armour extends Equippable {
     @Override
     public String toString()
     {
-        return "Use FMT_STR, accessors and String.format...";
+        StringBuilder strBld = new StringBuilder();
+        strBld.append(String.format("  Nme: %s\n", this.getName()));
+        strBld.append(String.format("  Dur: %d\n", this.getDurability()));
+        strBld.append(String.format("  Def: %d\n", this.getDefense()));
+        strBld.append(String.format("  Mtl: %s\n", this.getMaterial()));
+        strBld.append(String.format("  Mdr: %s (Lvl %d)\n", this.getModifier(), this.getModifierLevel()));
+        strBld.append(String.format("  Emt: %s\n", this.getElement()));
+
+        return strBld.toString();
     }
 }
-
-
-
-
